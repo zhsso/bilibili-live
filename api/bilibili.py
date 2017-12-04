@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
 # created by junqiang.shen on 17-12-2
-import json
 import logging
 
 import time
@@ -27,8 +26,10 @@ class Bilibili(Core):
     def __init__(self):
         pass
 
-    def get_live_room_id(self, live_url, uid=None):
-        if live_url:    # 输入的是直播页面地址
+    def get_live_room_id(self, room_id=None, live_url=None, uid=None):
+        if room_id:  # 输入的是主播空间直播介绍房间号,一般比较长
+            return response_json(Bilibili._API4 + str(room_id))['data']['room_id']
+        elif live_url:  # 输入的是直播页面地址
             room_id = parse_bilibili_live_room_id(live_url)
 
             try:
@@ -73,12 +74,3 @@ class Bilibili(Core):
     def stream_player(self, room_id):
         _url = self.get_stream_url(room_id)
         subprocess.run(['mpv', _url])
-
-
-if __name__ == '__main__':
-    bilibili = Bilibili()
-    _room_id = bilibili.get_live_room_id(live_url='https://live.bilibili.com/1040')
-    room_info = bilibili.get_room_info(_room_id)
-
-    if room_info and room_info['data']['live_status'] == 1:
-        bilibili.stream_player(_room_id)

@@ -41,7 +41,7 @@ def download_stream(url, file_name):
     output_file = None
 
     try:
-        res = request.urlopen(url, timeout=10)
+        res = request.urlopen(url, timeout=100000)
         output_file = open(file_name, 'wb')
         logging.info('starting download from:\n%s\nto:\n%s' % (url, file_name))
 

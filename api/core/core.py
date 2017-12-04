@@ -9,9 +9,10 @@ class Core:
     def login(self):
         raise NotImplementedError()
 
-    def get_live_room_id(self, live_url, uid):
+    def get_live_room_id(self, room_id, live_url, uid):
         """
         通过网页直播页面url或者主播的uid获取直播房间号
+        :param room_id: 直播间房间号,可能并不是真实放号
         :param live_url: 主播直播网页url地址
         :param uid: 主播注册对应的uid,可以在主播主页查看
         :return:
